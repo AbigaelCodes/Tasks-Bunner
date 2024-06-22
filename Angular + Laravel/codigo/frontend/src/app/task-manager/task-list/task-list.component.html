@@ -1,0 +1,16 @@
+<ul class="task-ul col-12">
+
+    <li *ngFor="let task of tasks" class="task-li d-inline-flex col-12 my-2">
+        <button class="btn btn-outline-danger btn-delete"><i class="bi bi-trash"></i></button>
+
+        <div class="d-inline-flex flex-column w-100 p-2">
+            <p> {{ task.description }} </p>
+            <div class="w-100 d-inline-flex justify-content-between">
+                <p>Creación: {{ task.created_at }}</p>
+                <p *ngIf="task.status">Finalización: {{ task.completed_at }}</p>
+            </div>
+        </div>
+
+        <button class="btn btn-outline-success btn-done">HECHO</button>
+    </li>
+</ul>

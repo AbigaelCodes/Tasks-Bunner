@@ -1,0 +1,7 @@
+<div class="d-inline-flex flex-column col-12">
+    <div class="mb-1 d-inline-flex">
+        <input [(ngModel)]="task.description" type="text" class="form-control" placeholder="Descripción tarea..." aria-label="Task Description">
+        <button (click)="agregateTask()" class="btn btn-success">Crear</button>
+    </div>
+    <div id="taskHelp" class="form-text text-center text-danger">Debes indicar un nombre de la tarea.</div>
+</div>

@@ -1,0 +1,28 @@
+.task-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.task-li {
+    background-color: #0a084ded;
+    color: white;
+    border-radius: 1em;
+}
+
+.task-li .btn-delete {
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-width: 4px;
+}
+
+.task-li .btn-done {
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-width: 4px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
