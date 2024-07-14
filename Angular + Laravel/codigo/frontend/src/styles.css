@@ -14,5 +14,12 @@ body {
     background-size: cover;
 }
 
+app-root {
+    display: flex;
+    min-height: 100vh;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
 
 /* Fin content */

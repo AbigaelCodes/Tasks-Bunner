@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class TasksService {
-  readonly API_BASE_URL: string = 'http://backend.mytasks.com/api';
+  readonly API_BASE_URL: string = 'https://backend.tasks-bunner.abigaelheredia.es/api';
 
   constructor(
     private http: HttpClient,

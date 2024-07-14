@@ -8,13 +8,14 @@ import { Injectable } from '@angular/core';
 import { User, UserRegister } from '../interfaces/User';
 import { lastValueFrom } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class UsersService {
-  readonly API_BASE_URL: string = 'http://backend.mytasks.com/api';
+  readonly API_BASE_URL: string = 'https://backend.tasks-bunner.abigaelheredia.es/api';
 
   public options: {
     headers?:
@@ -38,12 +39,14 @@ export class UsersService {
     withCredentials: true,
   };
 
-  constructor(private http: HttpClient,private cookieService: CookieService) {}
+  constructor(private http: HttpClient,private cookieService: CookieService,
+    private router: Router
+  ) {}
 
   async postLogin(user: User) {
     // Habilitar CSRF protection con sanctum
     let $result = await lastValueFrom(
-      this.http.get('http://backend.mytasks.com/sanctum/csrf-cookie', this.options)
+      this.http.get('https://backend.tasks-bunner.abigaelheredia.es/sanctum/csrf-cookie', this.options)
     );
     console.log('Resultado de req CSRF protect', $result);
 
@@ -53,6 +56,7 @@ export class UsersService {
         this.cookieService.set('access-token',resp.access_token)
 
         console.log('Respuesta correcta.', resp);
+        this.router.navigateByUrl('/tasks');
       },
       (error) => {
         console.log('Ha habido un error en la request', error);
