@@ -1,4 +1,4 @@
 <section class="d-inline-flex flex-column col-12">
-    <app-task-agregator></app-task-agregator>
-    <app-task-list class="mt-5"></app-task-list>
+    <app-task-agregator (createdTaskEvent)="OnCreatedTask($event)"></app-task-agregator>
+    <app-task-list #taskList class="mt-5"></app-task-list>
 </section>

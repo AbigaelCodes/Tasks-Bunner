@@ -21,4 +21,16 @@ export class TaskListComponent implements OnInit {
 
   }
 
+  OnDeletedTask(id: number){
+
+    const index = this.tasks.findIndex(task => task.id == id);
+    if (index > -1) {
+      this.tasks.splice(index, 1);
+    }
+  }
+
+  addTask(newTask: Task){
+    this.tasks.push(newTask);
+  }
+
 }

@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class TaskManagerController extends Controller
@@ -33,8 +34,8 @@ class TaskManagerController extends Controller
 
         // Return tasks.
         return response()
-        ->json(['tasks' => $tasks],200)
-        ->header('Content-Type', 'application/json');
+            ->json(['tasks' => $tasks], 200)
+            ->header('Content-Type', 'application/json');
     }
 
     public function CreateTask(Request $request)
@@ -55,32 +56,58 @@ class TaskManagerController extends Controller
         $task->save();
 
         return response()
-        ->json(['message' => 'Task created correctly.'],200)
-        ->withHeaders([
-            'Access-Control-Allow-Headers' => 'Origin',
-            'Access-Control-Allow-Origin' => 'http://localhost:4200',
-            'Content-Type' => 'application/json'
-        ]);
+            ->json([
+                'message' => 'Task created correctly.',
+                'task' => $task->toArray()
+            ], 200)
+            ->withHeaders([
+                'Access-Control-Allow-Headers' => 'Origin',
+                'Access-Control-Allow-Origin' => Config::get('app.ORIGINS'),
+                'Content-Type' => 'application/json'
+            ]);
     }
 
     public function UpdateTask(Request $request)
     {
         // Obtener usuario.
         $user_id = Auth::User()->id;
-        $user = User::find($user_id);
 
         // Actualizar datos de la tarea.
-        $task = Task::find($request->task_id);
+        $task = $task = Task::where('id', $request->id, 'and')->where('user_id', $user_id)->first();
         $task->status = 1;
         $task->completed_at = date('Y-m-d H:i:s');
 
         // Actualizar tarea.
         $task->update();
 
-        return response('Task updated correctly.',200)
-        ->withHeaders([
-            'Access-Control-Allow-Headers' => 'Origin',
-            'Access-Control-Allow-Origin' => 'http://localhost:4200'
-        ]);
+        return response()
+            ->json([
+                'message' => 'Task updated correctly.',
+                'task' => $task->toArray()
+            ], 200)
+            ->withHeaders([
+                'Access-Control-Allow-Headers' => 'Origin',
+                'Access-Control-Allow-Origin' => Config::get('app.ORIGINS'),
+                'Content-Type' => 'application/json'
+            ]);
+    }
+
+    public function DeleteTask(Request $request)
+    {
+        // Obtener usuario.
+        $user_id = Auth::User()->id;
+
+        // Obtener tarea.
+        $task = Task::where('id', $request->id, 'and')->where('user_id', $user_id)->first();
+
+        // Borrar tarea.
+        $task->delete();
+
+        return response()
+            ->json(['message' => 'Task updated correctly.'], 200)
+            ->withHeaders([
+                'Access-Control-Allow-Headers' => 'Origin',
+                'Access-Control-Allow-Origin' => Config::get('app.ORIGINS')
+            ]);
     }
 }

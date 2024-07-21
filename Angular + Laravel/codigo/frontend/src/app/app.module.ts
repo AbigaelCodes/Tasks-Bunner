@@ -13,6 +13,7 @@ import { RegisterComponent } from './user-manager/register/register.component';
 import { TaskAgregatorComponent } from './task-manager/task-agregator/task-agregator.component';
 import { PageNotFoundComponent } from './utilities/page-not-found/page-not-found.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { TaskComponent } from './task-manager/task/task.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
     TaskListComponent,
     LoginComponent,
     RegisterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

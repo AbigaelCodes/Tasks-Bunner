@@ -22,4 +22,10 @@ Route::get('/tasks',[TaskManagerController::class, 'index'])
 
 Route::post('/tasks/create',[TaskManagerController::class, 'CreateTask'])
 ->middleware('auth:sanctum');
+
+Route::post('/tasks/update',[TaskManagerController::class, 'UpdateTask'])
+->middleware('auth:sanctum');
+
+Route::post('/tasks/delete',[TaskManagerController::class, 'DeleteTask'])
+->middleware('auth:sanctum');
     

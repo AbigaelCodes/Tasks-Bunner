@@ -1,0 +1,13 @@
+<li class="task-li d-inline-flex col-12 my-2" [ngClass]="{'completed': status}">
+    <button (click)="deleteTask()" class="btn btn-outline-danger btn-delete"><i class="bi bi-trash"></i></button>
+
+    <div class="d-inline-flex flex-column w-100 p-2">
+        <p> {{ description }} </p>
+        <div class="w-100 d-inline-flex justify-content-between">
+            <p>Creación: {{ created_at }}</p>
+            <p *ngIf="status">Finalización: {{ completed_at }}</p>
+        </div>
+    </div>
+
+    <button (click)="taskDone()" class="btn btn-outline-success btn-done">HECHO</button>
+</li>

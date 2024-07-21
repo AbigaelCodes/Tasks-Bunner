@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  API_BASE_URL : 'http://backend.mytasks.com/api',
+  SANCTUM_CSRF_protection_URL: 'http://backend.mytasks.com/sanctum/csrf-cookie'
 };
 
 /*

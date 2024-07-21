@@ -9,13 +9,14 @@ import { User, UserRegister } from '../interfaces/User';
 import { lastValueFrom } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class UsersService {
-  readonly API_BASE_URL: string = 'https://backend.tasks-bunner.abigaelheredia.es/api';
+  readonly API_BASE_URL: string = environment.API_BASE_URL;
 
   public options: {
     headers?:
@@ -43,12 +44,16 @@ export class UsersService {
     private router: Router
   ) {}
 
+  async enableCSRFprotection(){
+        // Habilitar CSRF protection con sanctum
+        let $result = await lastValueFrom(
+          this.http.get(environment.SANCTUM_CSRF_protection_URL, this.options)
+        );
+        console.log('Resultado de req CSRF protect', $result);
+  }
+
   async postLogin(user: User) {
-    // Habilitar CSRF protection con sanctum
-    let $result = await lastValueFrom(
-      this.http.get('https://backend.tasks-bunner.abigaelheredia.es/sanctum/csrf-cookie', this.options)
-    );
-    console.log('Resultado de req CSRF protect', $result);
+    await this.enableCSRFprotection();
 
     // Realizar login
     this.http.post(this.API_BASE_URL + '/login', user, this.options).subscribe(
@@ -64,13 +69,8 @@ export class UsersService {
     );
   }
 
-  postRegister(user: UserRegister) {
-    // Habilitar CSRF protection con sanctum
-    this.http
-      .get('http://backend.mytasks.com/sanctum/csrf-cookie')
-      .subscribe((response) => {
-        console.log('Enviada protection CSRF');
-      });
+  async postRegister(user: UserRegister) {
+    await this.enableCSRFprotection();
 
     // Realizar registro
     this.http.post(this.API_BASE_URL + '/register', user, this.options).subscribe(

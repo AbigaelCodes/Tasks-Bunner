@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Task } from 'src/app/interfaces/Task';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -9,6 +9,8 @@ import { TasksService } from 'src/app/services/tasks.service';
 })
 export class TaskAgregatorComponent implements OnInit {
 
+
+  @Output() createdTaskEvent = new EventEmitter<Task>();
   public task: Task = {
     id: null!,
     user_id: null!,
@@ -26,9 +28,10 @@ export class TaskAgregatorComponent implements OnInit {
 
   async agregateTask(){
     let created = await this.tasksService.postNewTask(this.task);
-    if (created)
+    if (created){
       alert('Tarea creada correctamente.');
-      //this.eventTaskCreated();
+      this.createdTaskEvent.emit(this.task);
+    }
   }
 
 }
