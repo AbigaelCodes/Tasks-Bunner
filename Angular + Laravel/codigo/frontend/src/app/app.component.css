@@ -1,3 +1,22 @@
+/* Inicio navbar */
+
+nav {
+    background-color: #1b1856;
+    -webkit-box-shadow: 0px 18px 22px -14px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: 0px 18px 22px -14px rgba(0, 0, 0, 0.64);
+    box-shadow: 0px 18px 22px -14px rgba(0, 0, 0, 0.64);
+    color: papayawhip;
+}
+
+nav a {
+    color: papayawhip;
+    font-weight: bold;
+}
+
+
+/* Fin navbar */
+
+
 /* Inicio footer */
 
 footer {
